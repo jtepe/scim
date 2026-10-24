@@ -179,7 +179,7 @@ sequenceDiagram
         C->>DB: Save mapping and checkpoint on success
     end
     loop Each local provider-owned group reference
-        Note over C,SP: Resolve existing groups; do not create groups
+        Note over C,SP: Resolve existing groups and do not create them
         C->>SP: PATCH membership differences, if any
         C->>DB: Save checkpoint on success
     end
