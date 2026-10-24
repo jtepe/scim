@@ -3,6 +3,10 @@ import sqlite3
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+# Editable installs use the repository scripts; wheels bundle them in the package.
+SQL_ROOT = Path(__file__).resolve().parent / "sql"
+if not SQL_ROOT.is_dir():
+    SQL_ROOT = ROOT / "sql"
 
 
 def connect(path=None):
@@ -13,7 +17,7 @@ def connect(path=None):
     os.chmod(path, 0o600)
     db.row_factory = sqlite3.Row
     db.execute("PRAGMA foreign_keys = ON")
-    db.executescript((ROOT / "sql/schema.sql").read_text())
+    db.executescript((SQL_ROOT / "schema.sql").read_text())
     if fresh:
-        db.executescript((ROOT / "sql/seed.sql").read_text())
+        db.executescript((SQL_ROOT / "seed.sql").read_text())
     return db
