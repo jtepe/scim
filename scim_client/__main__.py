@@ -1,6 +1,6 @@
 import argparse
 
-from scim_client.db import ROOT, connect
+from scim_client.db import SQL_ROOT, connect
 from scim_client.web import create_app
 
 
@@ -20,7 +20,7 @@ def main():
     db = connect()
     try:
         if args.command == "reset":
-            db.executescript((ROOT / "sql/seed.sql").read_text())
+            db.executescript((SQL_ROOT / "seed.sql").read_text())
             print("Local database reset. Service provider unchanged.")
         elif args.command == "serve":
             db.execute("UPDATE runs SET status='interrupted' WHERE status='running'")

@@ -18,7 +18,7 @@ Python 3.14 is pinned because the Python 3.15 build available through uv during 
 ## Run
 
 ```sh
-uv run python -m scim_client
+uv run scim_client
 ```
 
 Open **http://127.0.0.1:5000**. First startup creates and seeds the database. You can explore and edit local data before a service provider exists. Sync needs a running provider.
@@ -60,7 +60,7 @@ This is a trusted, local test tool, not a production administration portal:
 Default: **`data/client.sqlite3`**, relative to the repository, regardless of the shell's working directory. Override with an absolute path:
 
 ```sh
-SCIM_DB=/absolute/path/client.sqlite3 uv run python -m scim_client
+SCIM_DB=/absolute/path/client.sqlite3 uv run scim_client
 ```
 
 SQLite stores companies, users, provider-owned group references, memberships, connection settings, provider ID mappings, revision checkpoints, sync runs, and the HTTP journal. Local database files are ignored by Git. No external database or frontend build tooling is required.
@@ -81,13 +81,13 @@ Seeded group references: **All Employees**, **Engineering**, **Human Resources**
 Stop the server first. This clears **all local data**, including credentials and journal history, then reapplies `sql/seed.sql`:
 
 ```sh
-uv run python -m scim_client reset --yes
+uv run scim_client reset --yes
 ```
 
 To initialize without starting the server:
 
 ```sh
-uv run python -m scim_client init
+uv run scim_client init
 ```
 
 Alternatively, after initialization, run the SQL script directly:
